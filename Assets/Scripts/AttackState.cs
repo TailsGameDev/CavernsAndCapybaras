@@ -9,7 +9,7 @@ public class AttackState : BattleState
     {
     }
 
-    public void OnEnterState()
+    public override void OnEnterState()
     {
         _hasAttackedThisTurn = false;
     }

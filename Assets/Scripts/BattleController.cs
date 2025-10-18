@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -9,6 +10,8 @@ public class BattleController : MonoBehaviour
     [FormerlySerializedAs("enemy")] public DuelistController enemyDuelist;
     [FormerlySerializedAs("player")] public DuelistController playerDuelist;
 
+    public TextMeshProUGUI hintText;
+    
     public DeckData enemyTestDeck;
     public DeckData playerTestDeck;
 
@@ -25,6 +28,8 @@ public class BattleController : MonoBehaviour
     private BattleState _currentState;
     
     private AIController _aiController;
+
+    private CardController _cachedCardToResetPosition;
 
     public DuelistController CurrentDuelist => _currentDuelist;
     public DuelistController OpponentDuelist => _opponentDuelist;
@@ -68,10 +73,18 @@ public class BattleController : MonoBehaviour
         {
             _currentState.OnExitState();
             nextState.OnEnterState();
+            hintText.text = nextState.GetType().Name+ "\n"
+                + ((_currentDuelist == playerDuelist) ? "Your turn" : "Enemy's turn");
             _currentState = nextState;
         }
         
         _aiController.Update();
+
+        if (_cachedCardToResetPosition != null)
+        {
+            _cachedCardToResetPosition.ResetPosition();
+            _cachedCardToResetPosition = null;
+        }
     }
 
     public void SwapDuelists()
@@ -98,5 +111,6 @@ public class BattleController : MonoBehaviour
     public void OnCardReleased(CardController card)
     {
         _currentState.hasAnyCardBeenReleasedThisFrame = true;
+        _cachedCardToResetPosition = card;
     }
 }

@@ -22,4 +22,10 @@ public class HandController
         _cardSlots[slotIndex] = null;
         return card;
     }
+    
+    public void GiveCardToSlot(CardController card, int slotIndex)
+    {
+        _cardSlots[slotIndex] = card;
+        card.SetParent(slots[slotIndex], worldPositionStays: false);
+    }
 }

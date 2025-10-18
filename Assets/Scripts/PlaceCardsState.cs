@@ -17,8 +17,9 @@ public class PlaceCardsState : BattleState
         {
             // Get references
             DuelistController duelist = battleController.CurrentDuelist;
-            BattlefieldController battlefield = duelist.battlefieldController;
+            DeckController deck = duelist.deckController;
             HandController hand = duelist.handController;
+            BattlefieldController battlefield = duelist.battlefieldController;
             CardController[] handCardSlots = hand.CardSlots;
 
             // Detect if a card is near a slot to place it there
@@ -36,7 +37,10 @@ public class PlaceCardsState : BattleState
                             const float SQR_DISTANCE_THRESHOLD = 0.25f;
                             if (sqrDistance < SQR_DISTANCE_THRESHOLD)
                             {
+                                // Take the card from hand and place it on the battlefield
+                                // Also refill the hand with a new drawn card from the deck
                                 battlefield.PlaceCardInSlot(hand.TakeCardFromSlot(h), b);
+                                hand.GiveCardToSlot(card: deck.DrawCard(), slotIndex: h);
                             }
                         }
                     }

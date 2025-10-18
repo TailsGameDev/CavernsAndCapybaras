@@ -18,9 +18,7 @@ public class DrawCardsState : BattleState
         {
             if (cardSlots[c] == null)
             {
-                CardController card = deck.DrawCard();
-                cardSlots[c] = card;
-                card.SetParent(hand.slots[c], worldPositionStays: false);
+                hand.GiveCardToSlot(card: deck.DrawCard(), slotIndex: c);
             }
         }
     }

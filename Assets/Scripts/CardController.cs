@@ -111,11 +111,14 @@ public class CardController : MonoBehaviour
     public void ExecuteAttack(CardController defender)
     {
         defender._currentCardData.vitality -= _currentCardData.attack;
-        if (defender._currentCardData.vitality <= 0)
+        if (defender._currentCardData.vitality > 0)
+        {
+            defender.cardView.RefreshCardView(defender._currentCardData);
+        }
+        else
         {
             Destroy(defender.gameObject);
         }
-        cardView.ResetPosition();
     }
 
     public void ResetPosition()
