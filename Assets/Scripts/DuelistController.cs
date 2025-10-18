@@ -1,15 +1,16 @@
 using System;
-using UnityEngine;
-using UnityEngine.Serialization;
 
 [Serializable]
 public class DuelistController
 {
     public DeckController deckController;
-    [FormerlySerializedAs("hand")] public HandController handController;
+    public HandController handController;
+    public BattlefieldController battlefieldController;
 
-    public void Initialize(CardController cardPrefab, DeckData deckData)
+    public void Initialize(CardController cardPrefab, DeckData deckData, Action<CardController> onCardReleased)
     {
-        deckController.Initialize(cardPrefab, deckData);
+        deckController.Initialize(cardPrefab, deckData, onCardReleased);
+        handController.Initialize();
+        battlefieldController.Initialize();
     }
 }

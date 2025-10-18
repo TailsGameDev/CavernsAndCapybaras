@@ -7,7 +7,19 @@ public class HandController
     public Transform root;
     public RectTransform[] slots;
     
-    private CardController[] _cards;
+    private CardController[] _cardSlots;
     
-    public CardController[] Cards => _cards;
+    public CardController[] CardSlots => _cardSlots;
+    
+    public void Initialize()
+    {
+        _cardSlots = new CardController[slots.Length];
+    }
+    
+    public CardController TakeCardFromSlot(int slotIndex)
+    {
+        CardController card = _cardSlots[slotIndex];
+        _cardSlots[slotIndex] = null;
+        return card;
+    }
 }

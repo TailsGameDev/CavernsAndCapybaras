@@ -1,6 +1,4 @@
-using UnityEngine;
-
-public class DrawCardsState : BattleController.BattleState
+public class DrawCardsState : BattleState
 {
     public DrawCardsState(BattleController battleController) : base(battleController)
     {
@@ -11,16 +9,24 @@ public class DrawCardsState : BattleController.BattleState
         base.Update();
 
         DuelistController duelist = battleController.CurrentDuelist;
-        DeckController deckController = duelist.deckController;
-
-        for (int h = 0; h < 5; h++)
+        DeckController deck = duelist.deckController;
+        HandController hand = duelist.handController;
+        CardController[] cardSlots = hand.CardSlots;
+        
+        // Draw card from deck to hand
+        for (int c = 0; c < cardSlots.Length; c++)
         {
-            // Draw card from deck to hand
+            if (cardSlots[c] == null)
+            {
+                CardController card = deck.DrawCard();
+                cardSlots[c] = card;
+                card.SetParent(hand.slots[c], worldPositionStays: false);
+            }
         }
     }
-
-    public override BattleController.BattleState GetNextState()
+    
+    public override BattleState GetNextState()
     {
-        return battleController.DrawCardsStateState;
+        return battleController.PlaceCardsState;
     }
 }

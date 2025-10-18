@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public enum SkillId
 {
@@ -48,9 +50,11 @@ public class CardController : MonoBehaviour
     private bool isDragging;
     private Vector2 touchPosition;
 
-    public void Initialize(CardId cardId)
+    private Action<CardController> _onCardReleased;
+
+    public void Initialize(CardId cardId, Action<CardController> onCardReleased)
     {
-        
+        _onCardReleased = onCardReleased;
     }
     
     private void Awake()
@@ -76,6 +80,22 @@ public class CardController : MonoBehaviour
     {
         cardView.OnPointerUp();
         isDragging = false;
+        _onCardReleased?.Invoke(this);
+    }
+
+    // TODO: Delegate to CardView
+    public void SetParent(Transform parent, bool worldPositionStays)
+    {
+        cardView.root.SetParent(parent, worldPositionStays);
+    }
+    public void SetPosition(Vector3 position)
+    {
+        transform.position = position;
+    }
+
+    public void ShowHorizontalView()
+    {
+        cardView.ShowHorizontalView();
     }
 }
 
@@ -93,8 +113,8 @@ public class CardView
     }
 
     public Transform root;
-    public CardLayout verticalLayout;
-    public CardLayout horizontalLayout;
+    [FormerlySerializedAs("verticalLayout")] public CardLayout verticalView;
+    [FormerlySerializedAs("horizontalLayout")] public CardLayout horizontalView;
 
 
     private bool isDragging;
@@ -113,7 +133,6 @@ public class CardView
     public void OnPointerUp()
     {
         isDragging = false;
-        root.position = originalPosition;
     }
     public void UpdateDrag()
     {
@@ -134,5 +153,11 @@ public class CardView
         touchPosition = newTouchPosition;
         cachedPosition += positionDelta;
         root.localPosition = cachedPosition;
+    }
+    
+    public void ShowHorizontalView()
+    {
+        verticalView.root.gameObject.SetActive(false);
+        horizontalView.root.gameObject.SetActive(true);
     }
 }
