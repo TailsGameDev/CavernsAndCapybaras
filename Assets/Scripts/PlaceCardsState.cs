@@ -60,7 +60,7 @@ public class PlaceCardsState : BattleState
             if (_hasPastFirstTurn)
             {
                 // Pass state when the battlefield is full
-                return battleController.RepositionState;
+                return battleController.AttackState;
             }
             else
             {

@@ -50,11 +50,21 @@ public class CardController : MonoBehaviour
     private bool isDragging;
     private Vector2 touchPosition;
 
+    private CardData _currentCardData;
+    
     private Action<CardController> _onCardReleased;
 
     public void Initialize(CardId cardId, Action<CardController> onCardReleased)
     {
         _onCardReleased = onCardReleased;
+        
+        // TODO: Load card data from a database or scriptable object
+        _currentCardData = new CardData();
+        _currentCardData.attack = 5;
+        _currentCardData.vitality = 10;
+        _currentCardData.skillId = SkillId.NONE;
+        
+        cardView.RefreshCardView(_currentCardData);
     }
     
     private void Awake()
@@ -97,6 +107,21 @@ public class CardController : MonoBehaviour
     {
         cardView.ShowHorizontalView();
     }
+    
+    public void ExecuteAttack(CardController defender)
+    {
+        defender._currentCardData.vitality -= _currentCardData.attack;
+        if (defender._currentCardData.vitality <= 0)
+        {
+            Destroy(defender.gameObject);
+        }
+        cardView.ResetPosition();
+    }
+
+    public void ResetPosition()
+    {
+        cardView.ResetPosition();
+    }
 }
 
 [System.Serializable]
@@ -110,6 +135,19 @@ public class CardView
         public TextMeshProUGUI attackText;
         public TextMeshProUGUI vitalityText;
         public TextMeshProUGUI skillText;
+        
+        public void SetAttack(int attack)
+        {
+            attackText.text = attack.ToString();
+        }
+        public void SetVitality(int vitality)
+        {
+            vitalityText.text = vitality.ToString();
+        }
+        public void SetSkill(SkillId skillId)
+        {
+            skillText.text = skillId.ToString();
+        }
     }
 
     public Transform root;
@@ -117,22 +155,34 @@ public class CardView
     [FormerlySerializedAs("horizontalLayout")] public CardLayout horizontalView;
 
 
-    private bool isDragging;
-    private Vector2 touchPosition;
-    private Vector2 cachedPosition;
-    private Vector3 originalPosition;
+    private bool _isDragging;
+    private Vector2 _touchPosition;
+    private Vector2 _cachedPosition;
+
+    public void Initialize()
+    {
+        // TODO: Load initial data into views
+    }
+
+    public void RefreshCardView(CardData cardData)
+    {
+        verticalView.SetAttack(cardData.attack);
+        verticalView.SetVitality(cardData.vitality);
+        horizontalView.SetAttack(cardData.attack);
+        horizontalView.SetVitality(cardData.vitality);
+        verticalView.SetSkill(cardData.skillId);
+    }
     
     public void OnPointerDown()
     {
-        isDragging = true;
+        _isDragging = true;
 
-        touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
-        cachedPosition = root.position;
-        originalPosition = root.position;
+        _touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+        _cachedPosition = root.position;
     }
     public void OnPointerUp()
     {
-        isDragging = false;
+        _isDragging = false;
     }
     public void UpdateDrag()
     {
@@ -143,21 +193,26 @@ public class CardView
             out Vector2 currentLocalPosition);
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            root.parent as RectTransform, touchPosition, Camera.main,
+            root.parent as RectTransform, _touchPosition, Camera.main,
             out Vector2 previousLocalPosition);
 
         // Calculate delta in canvas space
         Vector2 positionDelta = currentLocalPosition - previousLocalPosition;
             
         // Update position
-        touchPosition = newTouchPosition;
-        cachedPosition += positionDelta;
-        root.localPosition = cachedPosition;
+        _touchPosition = newTouchPosition;
+        _cachedPosition += positionDelta;
+        root.localPosition = _cachedPosition;
     }
     
     public void ShowHorizontalView()
     {
         verticalView.root.gameObject.SetActive(false);
         horizontalView.root.gameObject.SetActive(true);
+    }
+
+    public void ResetPosition()
+    {
+        root.localPosition = Vector3.zero;
     }
 }

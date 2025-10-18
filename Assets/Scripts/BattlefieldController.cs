@@ -18,7 +18,6 @@ public class BattlefieldController
 
     public void PlaceCardInSlot(CardController cardToPlace, int s)
     {
-        Debug.Log("[BattlefieldController] Placing card in slot " + s, root);
         _cardSlots[s] = cardToPlace;
         cardToPlace.SetParent(slots[s], worldPositionStays: false);
         cardToPlace.SetPosition(slots[s].position);

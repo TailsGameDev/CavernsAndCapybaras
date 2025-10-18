@@ -18,7 +18,7 @@ public class BattleController : MonoBehaviour
     private InitialState _initialState;
     private DrawCardsState _drawCardsState;
     private PlaceCardsState _placeCardsState;
-    private RepositionState _repositionState;
+    // private RepositionState _repositionState;
     private AttackState _attackState;
     private PassTurnState _passTurnState;
 
@@ -31,7 +31,7 @@ public class BattleController : MonoBehaviour
 
     public DrawCardsState DrawCardsState => _drawCardsState;
     public PlaceCardsState PlaceCardsState => _placeCardsState;
-    public RepositionState RepositionState => _repositionState;
+    // public RepositionState RepositionState => _repositionState;
     public AttackState AttackState => _attackState;
     public PassTurnState PassTurnState => _passTurnState;
     
@@ -49,7 +49,7 @@ public class BattleController : MonoBehaviour
         _initialState = new InitialState(this);
         _drawCardsState = new DrawCardsState(this);
         _placeCardsState = new PlaceCardsState(this);
-        _repositionState = new RepositionState(this);
+        // _repositionState = new RepositionState(this);
         _attackState = new AttackState(this);
         _passTurnState = new PassTurnState(this);
         
@@ -66,8 +66,6 @@ public class BattleController : MonoBehaviour
         BattleState nextState = _currentState.GetNextState();
         if (nextState != _currentState)
         {
-            Debug.Log(message: "IsPlayerDuelist: "+(_currentDuelist == playerDuelist)
-                +"; Changing state from " + _currentState.GetType().Name + " to " + nextState.GetType().Name, this);
             _currentState.OnExitState();
             nextState.OnEnterState();
             _currentState = nextState;
@@ -85,6 +83,10 @@ public class BattleController : MonoBehaviour
     // {
     //     return (_currentDuelist == playerDuelist);
     // }
+    public DuelistController GetOpponentDuelist()
+    {
+        return (_currentDuelist == playerDuelist) ? enemyDuelist : playerDuelist;
+    }
 
     public bool HasReleaseCardInput()
     {
