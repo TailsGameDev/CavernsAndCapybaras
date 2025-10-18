@@ -15,6 +15,25 @@ public enum SkillId
     BLESS = 6,
 }
 
+public enum CardId
+{
+    NONE = 0,
+    
+    CARD_01 = 1,
+    CARD_02 = 2,
+    CARD_03 = 3,
+    CARD_04 = 4,
+    CARD_05 = 5,
+    CARD_06 = 6,
+    CARD_07 = 7,
+    CARD_08 = 8,
+    CARD_09 = 9,
+    CARD_10 = 10,
+    CARD_11 = 11,
+    CARD_12 = 12,
+    CARD_13 = 13,
+}
+
 [System.Serializable]
 public class CardData
 {
@@ -26,16 +45,20 @@ public class CardData
 public class CardController : MonoBehaviour
 {
     public CardView cardView;
-    public PlayerControls controls;
     private bool isDragging;
     private Vector2 touchPosition;
+
+    public void Initialize(CardId cardId)
+    {
+        
+    }
     
-    public void Awake()
+    private void Awake()
     {
         cardView.root = transform;
     }
 
-    public void Update()
+    private void Update()
     {
         if (isDragging)
         {
@@ -51,7 +74,7 @@ public class CardController : MonoBehaviour
 
     public void OnPointerUp()
     {
-        cardView.OnPointerDown();
+        cardView.OnPointerUp();
         isDragging = false;
     }
 }
@@ -77,6 +100,7 @@ public class CardView
     private bool isDragging;
     private Vector2 touchPosition;
     private Vector2 cachedPosition;
+    private Vector3 originalPosition;
     
     public void OnPointerDown()
     {
@@ -84,10 +108,12 @@ public class CardView
 
         touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
         cachedPosition = root.position;
+        originalPosition = root.position;
     }
     public void OnPointerUp()
     {
         isDragging = false;
+        root.position = originalPosition;
     }
     public void UpdateDrag()
     {
