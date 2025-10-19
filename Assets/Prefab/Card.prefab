@@ -1211,6 +1211,10 @@ MonoBehaviour:
       attackText: {fileID: 6957618036916204702}
       vitalityText: {fileID: 2735224875569793163}
       skillText: {fileID: 486342301316862549}
+    rotationSpeedX: 1.5
+    maxRotationAngleX: 10
+    rotationSpeedY: -3
+    maxRotationAngleY: 20
 --- !u!1 &5577613708186439282
 GameObject:
   m_ObjectHideFlags: 0

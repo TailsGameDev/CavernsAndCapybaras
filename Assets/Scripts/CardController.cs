@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
@@ -142,6 +141,10 @@ public class CardView
     public Transform root;
     [FormerlySerializedAs("verticalLayout")] public CardLayout verticalView;
     [FormerlySerializedAs("horizontalLayout")] public CardLayout horizontalView;
+    public float rotationSpeedX;
+    public float maxRotationAngleX;
+    public float rotationSpeedY;
+    public float maxRotationAngleY;
 
 
     private bool _isDragging;
@@ -206,7 +209,15 @@ public class CardView
 
         // Calculate delta in canvas space
         Vector2 positionDelta = currentLocalPosition - previousLocalPosition;
-            
+        
+        // Calculate rotation based on movement direction
+        // For X movement: rotate around Y axis (tilt left/right)
+        // For Y movement: rotate around X axis (tilt up/down)
+        
+        float rotationX = Mathf.Clamp(positionDelta.y * rotationSpeedX, min: -maxRotationAngleX, max: maxRotationAngleX);
+        float rotationY = Mathf.Clamp(positionDelta.x * rotationSpeedY, min: -maxRotationAngleY, max: maxRotationAngleY);
+        root.localEulerAngles = new Vector3(rotationX, rotationY, 0.0f);
+
         // Update position
         _touchPosition = newTouchPosition;
         _cachedPosition += positionDelta;
