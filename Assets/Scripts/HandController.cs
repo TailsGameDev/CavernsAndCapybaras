@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 [Serializable]
 public class HandController
@@ -14,6 +15,13 @@ public class HandController
     public void Initialize()
     {
         _cardSlots = new CardController[slots.Length];
+    }
+    public void Clear()
+    {
+        for (int c = _cardSlots.Length - 1; c >= 0; c--)
+        {
+            Object.Destroy(_cardSlots[c].gameObject);
+        }
     }
     
     public CardController TakeCardFromSlot(int slotIndex)

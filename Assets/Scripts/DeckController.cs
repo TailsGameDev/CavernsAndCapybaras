@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = System.Random;
 
 [Serializable]
@@ -16,12 +17,20 @@ public class DeckController
         _cardsControllers = new List<CardController>();
         for (int c = 0; c < deckData.cardIds.Length; c++)
         {
-            CardController cardInstance = GameObject.Instantiate(cardPrefab,
+            CardController cardInstance = Object.Instantiate(cardPrefab,
                 root.transform.position, Quaternion.identity, parent: root);
             CardId cardId = deckData.cardIds[c];
             cardInstance.Initialize(cardId, onCardReleased);
             _cardsControllers.Insert(index: UnityEngine.Random.Range(0, _cardsControllers.Count), cardInstance);
         }
+    }
+    public void Clear()
+    {
+        for (int c = _cardsControllers.Count - 1; c >= 0; c--)
+        {
+            Object.Destroy(_cardsControllers[c].gameObject);
+        }
+        _cardsControllers.Clear();
     }
 
     public CardController DrawCard()

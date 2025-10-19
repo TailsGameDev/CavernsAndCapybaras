@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Object = UnityEngine.Object;
 
 [Serializable]
 public class BattlefieldController
@@ -14,6 +15,16 @@ public class BattlefieldController
     public void Initialize()
     {
         _cardSlots = new CardController[slots.Length];
+    }
+    public void Clear()
+    {
+        for (int c = _cardSlots.Length - 1; c >= 0; c--)
+        {
+            if (_cardSlots[c] != null)
+            {
+                Object.Destroy(_cardSlots[c].gameObject);
+            }
+        }
     }
 
     public void PlaceCardInSlot(CardController cardToPlace, int s)

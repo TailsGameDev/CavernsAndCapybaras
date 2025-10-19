@@ -27,6 +27,13 @@ public class DuelistController
         SetVitality(DEFAULT_VITALITY);
     }
 
+    public void Clear()
+    {
+        deckController.Clear();
+        handController.Clear();
+        battlefieldController.Clear();
+    }
+
     public void SetVitality(int newVitality)
     {
         _currentVitality = newVitality;

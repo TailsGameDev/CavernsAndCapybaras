@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
         
         foreach (var screenController in screenControllers)
         {
-            screenController.Initialize();
+            screenController.Initialize(this);
         }
         
         _currentScreenController = screenControllers[0];

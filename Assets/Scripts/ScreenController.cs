@@ -11,9 +11,14 @@ public enum ScreenId
 public class ScreenController : MonoBehaviour
 {
     public ScreenId screenId;
-    
-    public virtual void Initialize()
+
+
+    protected GameController _gameController;
+
+
+    public virtual void Initialize(GameController gameController)
     {
+        _gameController = gameController;
     }
 
     public virtual void ShowAsScreen()

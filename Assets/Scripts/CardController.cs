@@ -135,7 +135,6 @@ public class CardView
 
         public void SetName(string cardDataFriendlyName)
         {
-            Debug.Log("set text to "+cardDataFriendlyName, skillText);
             skillText.text = cardDataFriendlyName;
         }
     }

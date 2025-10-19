@@ -72,6 +72,14 @@ public class BattleController : ScreenController
         _nextScreenId = ScreenId.BATTLE;
     }
 
+    public override void Close()
+    {
+        base.Close();
+        
+        playerDuelist.Clear();
+        enemyDuelist.Clear();
+    }
+
     private void Update()
     {
         // FSM Loop
