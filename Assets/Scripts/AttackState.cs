@@ -82,4 +82,9 @@ public class AttackState : BattleState
         }
         return this;
     }
+
+    public override string GetFriendlyName()
+    {
+        return "Modo de Ataque";
+    }
 }

@@ -96,7 +96,7 @@ public class BattleController : ScreenController
             //     + "; state transition "+_currentState.GetType().Name+" to: "+nextState.GetType().Name, this);
             _currentState.OnExitState();
             nextState.OnEnterState();
-            hintText.text = nextState.GetType().Name+ "\n"
+            hintText.text = nextState.GetFriendlyName()+ "\n"
                 + ((_currentDuelist == playerDuelist) ? "Sua vez" : "Vez do inimigo");
             _currentState = nextState;
         }
@@ -112,11 +112,7 @@ public class BattleController : ScreenController
     {
         _currentDuelist = (_currentDuelist == playerDuelist) ? enemyDuelist : playerDuelist;
     }
-    
-    // public bool IsPlayerTurn()
-    // {
-    //     return (_currentDuelist == playerDuelist);
-    // }
+
     public DuelistController GetOpponentDuelist()
     {
         return (_currentDuelist == playerDuelist) ? enemyDuelist : playerDuelist;

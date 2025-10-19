@@ -77,4 +77,9 @@ public class PlaceCardsState : BattleState
             return this;
         }
     }
+
+    public override string GetFriendlyName()
+    {
+        return "Posicione as cartas";
+    }
 }

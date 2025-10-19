@@ -23,4 +23,9 @@ public class BattleState
     {
         return this;
     }
+
+    public virtual string GetFriendlyName()
+    {
+        return this.GetType().Name;
+    }
 }
