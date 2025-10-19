@@ -23,12 +23,14 @@ public class BattleController : ScreenController
     // private RepositionState _repositionState;
     private AttackState _attackState;
     private PassTurnState _passTurnState;
+    private BattleState _finalState;
 
     private BattleState _currentState;
     
     private AIController _aiController;
 
     private CardController _cachedCardToResetPosition;
+    private ScreenId _nextScreenId;
 
     public DuelistController CurrentDuelist => _currentDuelist;
     public DuelistController OpponentDuelist => _opponentDuelist;
@@ -40,10 +42,13 @@ public class BattleController : ScreenController
     public PassTurnState PassTurnState => _passTurnState;
     
     public BattleState CurrentState => _currentState;
+    public BattleState FinalState => _finalState;
 
 
-    private void Awake()
+    public override void ShowAsScreen()
     {
+        base.ShowAsScreen();
+
         playerDuelist.Initialize(cardPrefab, playerTestDeck, OnCardReleased);
         enemyDuelist.Initialize(cardPrefab, enemyTestDeck, OnCardReleased);
         
@@ -55,12 +60,15 @@ public class BattleController : ScreenController
         _placeCardsState = new PlaceCardsState(this);
         // _repositionState = new RepositionState(this);
         _attackState = new AttackState(this);
-        _passTurnState = new PassTurnState(this);
+        _passTurnState = new PassTurnState(this, OnBattleFinished);
+        _finalState = new BattleState(this);
         
         _initialState.OnEnterState();
         _currentState = _initialState;
 
         _currentDuelist = enemyDuelist;
+        
+        _nextScreenId = ScreenId.BATTLE;
     }
 
     private void Update()
@@ -111,5 +119,15 @@ public class BattleController : ScreenController
     {
         _currentState.hasAnyCardBeenReleasedThisFrame = true;
         _cachedCardToResetPosition = card;
+    }
+
+    private void OnBattleFinished(DuelistController winner)
+    {
+        _nextScreenId = (winner == playerDuelist) ? ScreenId.BATTLE_REWARDS : ScreenId.MAIN_MENU;
+    }
+    
+    public override ScreenId GetNextScreenId()
+    {
+        return _nextScreenId;
     }
 }

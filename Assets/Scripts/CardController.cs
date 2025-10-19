@@ -75,7 +75,7 @@ public class CardController : MonoBehaviour
         }
         else
         {
-            Destroy(defender.gameObject);
+            DestroyImmediate(defender.gameObject);
         }
         cardView.ResetPosition();
     }

@@ -37,6 +37,12 @@ public class AttackState : BattleState
                     {
                         attackerCard.ExecuteAttack(defenderCard);
                         
+                        if (defenderCard == null)
+                        {
+                            const int DAMAGE_PER_CARD_DEATH = 1;
+                            battleController.GetOpponentDuelist().TakeDamage(damage: DAMAGE_PER_CARD_DEATH);
+                        }
+                        
                         _hasAttackedThisTurn = true;
                     }
                 }
