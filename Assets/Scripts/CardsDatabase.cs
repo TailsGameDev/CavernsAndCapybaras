@@ -23,6 +23,7 @@ public class CardsDatabase : ScriptableObject
 [System.Serializable]
 public class CardData
 {
+    public string friendlyName;
     public CardId cardId;
     public int attack;
     public int vitality;
@@ -32,13 +33,16 @@ public class CardData
 
     public CardData GetCopy()
     {
-        CardData copy = new CardData();
-        copy.cardId = this.cardId;
-        copy.attack = this.attack;
-        copy.vitality = this.vitality;
-        copy.skillId = this.skillId;
-        copy.verticalCharacterArt = this.verticalCharacterArt;
-        copy.horizontalCharacterArt = this.horizontalCharacterArt;
+        CardData copy = new CardData
+        {
+            friendlyName = friendlyName,
+            cardId = cardId,
+            attack = attack,
+            vitality = vitality,
+            skillId = skillId,
+            verticalCharacterArt = verticalCharacterArt,
+            horizontalCharacterArt = horizontalCharacterArt
+        };
         return copy;
     }
 }

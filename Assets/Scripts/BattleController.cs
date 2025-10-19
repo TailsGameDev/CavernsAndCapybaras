@@ -86,7 +86,7 @@ public class BattleController : ScreenController
             _currentState.OnExitState();
             nextState.OnEnterState();
             hintText.text = nextState.GetType().Name+ "\n"
-                + ((_currentDuelist == playerDuelist) ? "Your turn" : "Enemy's turn");
+                + ((_currentDuelist == playerDuelist) ? "Sua vez" : "Vez do inimigo");
             _currentState = nextState;
         }
 

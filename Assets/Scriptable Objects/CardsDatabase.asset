@@ -13,73 +13,85 @@ MonoBehaviour:
   m_Name: CardsDatabase
   m_EditorClassIdentifier: 
   cardsData:
-  - cardId: 1
+  - friendlyName: Guarath
+    cardId: 1
     attack: 4
     vitality: 2
     skillId: 1
     verticalCharacterArt: {fileID: 650724861264003149, guid: 7b3c534ba84c46b43ae7c44af3e6e54a, type: 3}
     horizontalCharacterArt: {fileID: 650724861264003149, guid: 8b9056e13d52c4946bb5c26f2a84f79f, type: 3}
-  - cardId: 2
+  - friendlyName: Tamaniel
+    cardId: 2
     attack: 2
     vitality: 20
     skillId: 2
     verticalCharacterArt: {fileID: -6909310472688056315, guid: 4a8ebe462a07a1041bbfae62377b27ab, type: 3}
     horizontalCharacterArt: {fileID: -6909310472688056315, guid: 74be481a85e2006489f8f1e78938c71f, type: 3}
-  - cardId: 3
+  - friendlyName: Caps
+    cardId: 3
     attack: 5
     vitality: 5
     skillId: 3
     verticalCharacterArt: {fileID: -4747242315732754432, guid: edee64ccf50936a44a69085124063701, type: 3}
     horizontalCharacterArt: {fileID: -4747242315732754432, guid: b0484c171dd774b4d8e50fc9ce658d23, type: 3}
-  - cardId: 4
+  - friendlyName: Sir Mico
+    cardId: 4
     attack: 4
     vitality: 6
     skillId: 4
     verticalCharacterArt: {fileID: 737033274375132160, guid: c23badcb5cb4a484f84d62bed2805f4f, type: 3}
     horizontalCharacterArt: {fileID: 737033274375132160, guid: 2d5e574304b3de74abc14421efc9d4e5, type: 3}
-  - cardId: 5
+  - friendlyName: Felith
+    cardId: 5
     attack: 10
     vitality: 10
     skillId: 5
     verticalCharacterArt: {fileID: -7947691511858366906, guid: 4a7492c37fed16346a5adfdb7120312c, type: 3}
     horizontalCharacterArt: {fileID: -7947691511858366906, guid: a7b3be1425f46d64b85317f52eb9af65, type: 3}
-  - cardId: 6
+  - friendlyName: Tuco
+    cardId: 6
     attack: 1
     vitality: 5
     skillId: 6
     verticalCharacterArt: {fileID: -4898124945606895141, guid: 80b6e98c8803dbf43875dfa5d7d0f66b, type: 3}
     horizontalCharacterArt: {fileID: -4898124945606895141, guid: 88b21c5e616ff2c47b67cf198bf40ca6, type: 3}
-  - cardId: 7
+  - friendlyName: Raton
+    cardId: 7
     attack: 7
     vitality: 3
     skillId: 0
     verticalCharacterArt: {fileID: -8042308397187299428, guid: ef990ce044fa7e846b87147c3a5ff60c, type: 3}
     horizontalCharacterArt: {fileID: -8042308397187299428, guid: 830f88858e9aa9e409b8b261a68b58ff, type: 3}
-  - cardId: 8
+  - friendlyName: Cruelho
+    cardId: 8
     attack: 6
     vitality: 4
     skillId: 0
     verticalCharacterArt: {fileID: -6063372923739407794, guid: 283b148e0683bf1499f0f9aa198d95ad, type: 3}
     horizontalCharacterArt: {fileID: -6063372923739407794, guid: d8ad9240b835918499e835fddc031444, type: 3}
-  - cardId: 9
+  - friendlyName: Draco
+    cardId: 9
     attack: 8
     vitality: 2
     skillId: 0
     verticalCharacterArt: {fileID: -6429060729102519871, guid: c7e551681e5a06c4aa628b1ed46c8dfc, type: 3}
     horizontalCharacterArt: {fileID: -6429060729102519871, guid: fa0fe7e71fc624c44b100d13db1880ca, type: 3}
-  - cardId: 10
+  - friendlyName: Drogo
+    cardId: 10
     attack: 3
     vitality: 7
     skillId: 0
     verticalCharacterArt: {fileID: -8790841120255358837, guid: 32571c53d36fa514da0f327e53b2a5d1, type: 3}
     horizontalCharacterArt: {fileID: -8790841120255358837, guid: bb3303c42fac5e44bb2d2e0fbbe04d99, type: 3}
-  - cardId: 11
+  - friendlyName: Tox
+    cardId: 11
     attack: 2
     vitality: 8
     skillId: 0
     verticalCharacterArt: {fileID: 3879902149706580788, guid: 0a753eb99cfef9a49b590e46d00b2c39, type: 3}
     horizontalCharacterArt: {fileID: 3879902149706580788, guid: eb013b63a780ae74d8ca1f4bb5d1f696, type: 3}
-  - cardId: 12
+  - friendlyName: Tigrinho
+    cardId: 12
     attack: 10
     vitality: 10
     skillId: 5

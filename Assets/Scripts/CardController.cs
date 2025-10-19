@@ -132,6 +132,12 @@ public class CardView
         {
             characterArt.sprite = art;
         }
+
+        public void SetName(string cardDataFriendlyName)
+        {
+            Debug.Log("set text to "+cardDataFriendlyName, skillText);
+            skillText.text = cardDataFriendlyName;
+        }
     }
 
     public Transform root;
@@ -148,12 +154,14 @@ public class CardView
     {
         verticalView.SetAttack(cardData.attack);
         verticalView.SetVitality(cardData.vitality);
-        verticalView.SetSkill(cardData.skillId);
+        // verticalView.SetSkill(cardData.skillId);
+        verticalView.SetName(cardData.friendlyName);
         verticalView.SetCharacterArt(cardData.verticalCharacterArt);
         
         horizontalView.SetAttack(cardData.attack);
         horizontalView.SetVitality(cardData.vitality);
-        horizontalView.SetSkill(cardData.skillId);
+        // horizontalView.SetSkill(cardData.skillId);
+        horizontalView.SetName(cardData.friendlyName);
         horizontalView.SetCharacterArt(cardData.horizontalCharacterArt);
 
         root.gameObject.name = cardData.cardId.ToString();
