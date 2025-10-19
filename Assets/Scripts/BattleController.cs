@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
@@ -80,6 +81,8 @@ public class BattleController : ScreenController
         BattleState nextState = _currentState.GetNextState();
         if (nextState != _currentState)
         {
+            // Debug.Log("is player: "+(_currentDuelist == playerDuelist)
+            //     + "; state transition "+_currentState.GetType().Name+" to: "+nextState.GetType().Name, this);
             _currentState.OnExitState();
             nextState.OnEnterState();
             hintText.text = nextState.GetType().Name+ "\n"

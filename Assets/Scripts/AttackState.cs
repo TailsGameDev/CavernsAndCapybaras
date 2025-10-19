@@ -18,14 +18,16 @@ public class AttackState : BattleState
     {
         base.Update();
 
+        CardController defender = null;
+        
         if (hasAnyCardBeenReleasedThisFrame)
         {
             // Get references
             CardController[] attackerCards = battleController.CurrentDuelist.battlefieldController.CardSlots;
             CardController[] defenderCards = battleController.GetOpponentDuelist().battlefieldController.CardSlots;
-
+            
             // Detect if an attacker is near a defender to perform the attack
-            for (int a = 0; a < attackerCards.Length; a++)
+            for (int a = 0; (!_hasAttackedThisTurn) && (a < attackerCards.Length); a++)
             {
                 for (int d = 0; d < defenderCards.Length; d++)
                 {
@@ -36,17 +38,22 @@ public class AttackState : BattleState
                     if (sqrDistance < SQR_DISTANCE_THRESHOLD)
                     {
                         attackerCard.ExecuteAttack(defenderCard);
-                        
-                        if (defenderCard == null)
-                        {
-                            const int DAMAGE_PER_CARD_DEATH = 1;
-                            battleController.GetOpponentDuelist().TakeDamage(damage: DAMAGE_PER_CARD_DEATH);
-                        }
+
+                        defender = defenderCard;
                         
                         _hasAttackedThisTurn = true;
+
+                        break;
                     }
                 }
             }
+        }
+
+        // Deal damage to the duelist if any card has died
+        if (_hasAttackedThisTurn && (defender == null))
+        {
+            const int DAMAGE_PER_CARD_DEATH = 1;
+            battleController.GetOpponentDuelist().TakeDamage(damage: DAMAGE_PER_CARD_DEATH);
         }
         
         hasAnyCardBeenReleasedThisFrame = false;
