@@ -1,9 +1,8 @@
 using TMPro;
-using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-public class BattleController : MonoBehaviour
+public class BattleController : ScreenController
 {
     public CardController cardPrefab;
 

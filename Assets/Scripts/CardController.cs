@@ -101,10 +101,10 @@ public class CardController : MonoBehaviour
     }
 }
 
-[System.Serializable]
+[Serializable]
 public class CardView
 {
-    [System.Serializable]
+    [Serializable]
     public class CardLayout
     {
         public GameObject root;
