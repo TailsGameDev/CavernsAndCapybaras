@@ -50,38 +50,38 @@ MonoBehaviour:
     verticalCharacterArt: {fileID: -4898124945606895141, guid: 80b6e98c8803dbf43875dfa5d7d0f66b, type: 3}
     horizontalCharacterArt: {fileID: -4898124945606895141, guid: 88b21c5e616ff2c47b67cf198bf40ca6, type: 3}
   - cardId: 7
-    attack: 5
-    vitality: 5
+    attack: 7
+    vitality: 3
     skillId: 0
-    verticalCharacterArt: {fileID: 0}
-    horizontalCharacterArt: {fileID: 0}
+    verticalCharacterArt: {fileID: -8042308397187299428, guid: ef990ce044fa7e846b87147c3a5ff60c, type: 3}
+    horizontalCharacterArt: {fileID: -8042308397187299428, guid: 830f88858e9aa9e409b8b261a68b58ff, type: 3}
   - cardId: 8
-    attack: 5
-    vitality: 5
+    attack: 6
+    vitality: 4
     skillId: 0
     verticalCharacterArt: {fileID: -6063372923739407794, guid: 283b148e0683bf1499f0f9aa198d95ad, type: 3}
     horizontalCharacterArt: {fileID: -6063372923739407794, guid: d8ad9240b835918499e835fddc031444, type: 3}
   - cardId: 9
-    attack: 5
-    vitality: 5
+    attack: 8
+    vitality: 2
     skillId: 0
     verticalCharacterArt: {fileID: -6429060729102519871, guid: c7e551681e5a06c4aa628b1ed46c8dfc, type: 3}
     horizontalCharacterArt: {fileID: -6429060729102519871, guid: fa0fe7e71fc624c44b100d13db1880ca, type: 3}
   - cardId: 10
-    attack: 5
-    vitality: 5
+    attack: 3
+    vitality: 7
     skillId: 0
     verticalCharacterArt: {fileID: -8790841120255358837, guid: 32571c53d36fa514da0f327e53b2a5d1, type: 3}
     horizontalCharacterArt: {fileID: -8790841120255358837, guid: bb3303c42fac5e44bb2d2e0fbbe04d99, type: 3}
   - cardId: 11
-    attack: 5
-    vitality: 5
+    attack: 2
+    vitality: 8
     skillId: 0
     verticalCharacterArt: {fileID: 3879902149706580788, guid: 0a753eb99cfef9a49b590e46d00b2c39, type: 3}
     horizontalCharacterArt: {fileID: 3879902149706580788, guid: eb013b63a780ae74d8ca1f4bb5d1f696, type: 3}
   - cardId: 12
-    attack: 5
-    vitality: 5
-    skillId: 0
+    attack: 10
+    vitality: 10
+    skillId: 5
     verticalCharacterArt: {fileID: 8207803200791981162, guid: a0dce3ef147f011478d5ec4456034079, type: 3}
     horizontalCharacterArt: {fileID: 8207803200791981162, guid: 2e6f819e5cd1d1e479dd43d00a91e21b, type: 3}

@@ -117,6 +117,9 @@ public class CardView
         public void SetSkill(SkillId skillId)
         {
             skillText.text = skillId.ToString();
+            
+            // Hide NONE skill
+            skillText.transform.parent.gameObject.SetActive(skillId != SkillId.NONE);
         }
         public void SetCharacterArt(Sprite art)
         {
@@ -151,9 +154,24 @@ public class CardView
     {
         _isDragging = true;
 
-        _touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+        _touchPosition = GetPointerPosition();
         _cachedPosition = root.position;
     }
+    private Vector2 GetPointerPosition()
+    {
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.isInProgress)
+        {
+            return Touchscreen.current.primaryTouch.position.ReadValue();
+        }
+    
+        if (Mouse.current != null)
+        {
+            return Mouse.current.position.ReadValue();
+        }
+
+        return Vector2.zero;
+    }
+
     public void OnPointerUp()
     {
         _isDragging = false;
@@ -161,7 +179,7 @@ public class CardView
     public void UpdateDrag()
     {
         // Convert screen positions to Canvas space
-        Vector2 newTouchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+        Vector2 newTouchPosition = GetPointerPosition();
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             root.parent as RectTransform, newTouchPosition, Camera.main,
             out Vector2 currentLocalPosition);
