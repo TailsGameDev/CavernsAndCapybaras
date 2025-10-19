@@ -1,4 +1,6 @@
 using System;
+using TMPro;
+using UnityEngine.UI;
 
 [Serializable]
 public class DuelistController
@@ -13,4 +15,11 @@ public class DuelistController
         handController.Initialize();
         battlefieldController.Initialize();
     }
+}
+
+[Serializable]
+public class DuelistView
+{
+    public Image avatarImage;
+    public TextMeshProUGUI vitalityText;
 }

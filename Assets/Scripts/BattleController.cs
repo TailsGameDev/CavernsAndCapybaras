@@ -67,6 +67,8 @@ public class BattleController : MonoBehaviour
     private void Update()
     {
         // FSM Loop
+        _aiController.Update();
+        
         _currentState.Update();
         BattleState nextState = _currentState.GetNextState();
         if (nextState != _currentState)
@@ -77,8 +79,6 @@ public class BattleController : MonoBehaviour
                 + ((_currentDuelist == playerDuelist) ? "Your turn" : "Enemy's turn");
             _currentState = nextState;
         }
-        
-        _aiController.Update();
 
         if (_cachedCardToResetPosition != null)
         {
