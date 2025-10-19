@@ -11,7 +11,7 @@ public class DeckController
 
     private List<CardController> _cardsControllers;
 
-    public void Initialize(CardController cardPrefab, DeckData deckData, Action<CardController> onCardReleased)
+    public void Initialize(CardController cardPrefab, DeckData deckData, Transform movingCardsParent, Action<CardController> onCardReleased)
     {
         // Instantiate and initialize all cards. Insert cards randomly so the deck gets shuffled
         _cardsControllers = new List<CardController>();
@@ -20,7 +20,7 @@ public class DeckController
             CardController cardInstance = Object.Instantiate(cardPrefab,
                 root.transform.position, Quaternion.identity, parent: root);
             CardId cardId = deckData.cardIds[c];
-            cardInstance.Initialize(cardId, onCardReleased);
+            cardInstance.Initialize(cardId, movingCardsParent, onCardReleased);
             _cardsControllers.Insert(index: UnityEngine.Random.Range(0, _cardsControllers.Count), cardInstance);
         }
     }

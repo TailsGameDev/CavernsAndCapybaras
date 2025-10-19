@@ -11,6 +11,7 @@ public class BattleController : ScreenController
     [FormerlySerializedAs("player")] public DuelistController playerDuelist;
 
     public TextMeshProUGUI hintText;
+    public Transform movingCardsParent;
     
     public DeckData enemyTestDeck;
     public DeckData playerTestDeck;
@@ -50,8 +51,8 @@ public class BattleController : ScreenController
     {
         base.ShowAsScreen();
 
-        playerDuelist.Initialize(cardPrefab, playerTestDeck, OnCardReleased);
-        enemyDuelist.Initialize(cardPrefab, enemyTestDeck, OnCardReleased);
+        playerDuelist.Initialize(cardPrefab, playerTestDeck, movingCardsParent, OnCardReleased);
+        enemyDuelist.Initialize(cardPrefab, enemyTestDeck, movingCardsParent, OnCardReleased);
         
         _aiController = new AIController(this);
         

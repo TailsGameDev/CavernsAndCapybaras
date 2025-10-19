@@ -75,6 +75,41 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1106466657230136126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3704589309040380332}
+  m_Layer: 5
+  m_Name: Moving Cards Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3704589309040380332
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106466657230136126}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1110601530537376381}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4198787982590367383
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,6 +648,7 @@ RectTransform:
   - {fileID: 2624491024176242553}
   - {fileID: 7446937819412620197}
   - {fileID: 882711884175699292}
+  - {fileID: 3704589309040380332}
   - {fileID: 2434468734872651446}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -676,6 +712,7 @@ MonoBehaviour:
       avatarImage: {fileID: 2807889204876359083}
       vitalityText: {fileID: 6511736180625347896}
   hintText: {fileID: 4515726102082565833}
+  movingCardsParent: {fileID: 3704589309040380332}
   enemyTestDeck:
     cardIds: 0700000007000000080000000800000009000000090000000a0000000a0000000b0000000b0000000c0000000c000000
   playerTestDeck:

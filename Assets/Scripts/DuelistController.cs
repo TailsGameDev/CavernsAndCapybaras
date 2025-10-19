@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
@@ -17,9 +18,9 @@ public class DuelistController
     public int Vitality => _currentVitality;
     
     
-    public void Initialize(CardController cardPrefab, DeckData deckData, Action<CardController> onCardReleased)
+    public void Initialize(CardController cardPrefab, DeckData deckData, Transform movingCardsParent, Action<CardController> onCardReleased)
     {
-        deckController.Initialize(cardPrefab, deckData, onCardReleased);
+        deckController.Initialize(cardPrefab, deckData, movingCardsParent, onCardReleased);
         handController.Initialize();
         battlefieldController.Initialize();
 

@@ -16,11 +16,12 @@ public class CardController : MonoBehaviour
     
     private Action<CardController> _onCardReleased;
 
-    public void Initialize(CardId cardId, Action<CardController> onCardReleased)
+    public void Initialize(CardId cardId, Transform movingCardsParent, Action<CardController> onCardReleased)
     {
         _onCardReleased = onCardReleased;
 
         _currentCardData = cardsDatabase.GetCardDataCopy(cardId);
+        cardView.Initialize(movingCardsParent);
         cardView.RefreshCardView(_currentCardData);
     }
     
@@ -50,10 +51,9 @@ public class CardController : MonoBehaviour
         _onCardReleased?.Invoke(this);
     }
 
-    // TODO: Delegate to CardView
     public void SetParent(Transform parent, bool worldPositionStays)
     {
-        cardView.root.SetParent(parent, worldPositionStays);
+        cardView.SetParent(parent, worldPositionStays);
     }
     public void SetPosition(Vector3 position)
     {
@@ -150,7 +150,14 @@ public class CardView
     private bool _isDragging;
     private Vector2 _touchPosition;
     private Vector2 _cachedPosition;
+    private Transform _cachedPreviousParent;
+    private Transform _movingCardsParent;
 
+
+    public void Initialize(Transform movingCardsParent)
+    {
+        _movingCardsParent = movingCardsParent;
+    }
     
     public void RefreshCardView(CardData cardData)
     {
@@ -175,6 +182,11 @@ public class CardView
 
         _touchPosition = GetPointerPosition();
         _cachedPosition = root.position;
+
+        _cachedPreviousParent = root.parent;
+        // TODO: Try to do the trick without moving the _movingCardsParent
+        _movingCardsParent.position = root.parent.position;
+        SetParent(_movingCardsParent, worldPositionStays: true);
     }
     private Vector2 GetPointerPosition()
     {
@@ -193,6 +205,9 @@ public class CardView
 
     public void OnPointerUp()
     {
+        // Set back to the previous parent just in case, knowing that the controllers will set another parent if needed
+        SetParent(_cachedPreviousParent, worldPositionStays: true);
+        _cachedPreviousParent = null;
         _isDragging = false;
     }
     public void UpdateDrag()
@@ -210,10 +225,7 @@ public class CardView
         // Calculate delta in canvas space
         Vector2 positionDelta = currentLocalPosition - previousLocalPosition;
         
-        // Calculate rotation based on movement direction
-        // For X movement: rotate around Y axis (tilt left/right)
-        // For Y movement: rotate around X axis (tilt up/down)
-        
+        // Update rotation for tilt effect
         float rotationX = Mathf.Clamp(positionDelta.y * rotationSpeedX, min: -maxRotationAngleX, max: maxRotationAngleX);
         float rotationY = Mathf.Clamp(positionDelta.x * rotationSpeedY, min: -maxRotationAngleY, max: maxRotationAngleY);
         root.localEulerAngles = new Vector3(rotationX, rotationY, 0.0f);
@@ -233,5 +245,10 @@ public class CardView
     public void ResetPosition()
     {
         root.localPosition = Vector3.zero;
+    }
+
+    public void SetParent(Transform newParent, bool worldPositionStays)
+    {
+        root.SetParent(newParent, worldPositionStays);
     }
 }
