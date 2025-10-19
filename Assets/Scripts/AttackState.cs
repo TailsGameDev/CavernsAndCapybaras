@@ -58,6 +58,21 @@ public class AttackState : BattleState
         
         hasAnyCardBeenReleasedThisFrame = false;
     }
+
+    public override void OnExitState()
+    {
+        // Reset all attacker cards to their battlefield slot parents,
+        // as if it's the AI playing, it wouldn't happen naturally
+        BattlefieldController attackerBattlefield = battleController.CurrentDuelist.battlefieldController;
+        for (int c = 0; c < attackerBattlefield.CardSlots.Length; c++)
+        {
+            CardController attackerCard = attackerBattlefield.CardSlots[c];
+            if (attackerCard != null)
+            {
+                attackerCard.SetParent(attackerBattlefield.slots[c].transform, worldPositionStays: false);
+            }
+        }
+    }
     
     public override BattleState GetNextState()
     {

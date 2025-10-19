@@ -141,10 +141,9 @@ public class AIController
                     }
                 }
 
-                // Simulate card release on top of the target, as it's the AI dragging and dropping the cards
+                // Start tween to move the attacker card smoothly towards its target, and restore the parent on complete
                 // TODO: Protection
-                strongerAICard.SetPosition(strongerPlayerCard.GetPosition());
-                _battleController.OnCardReleased(card: aiBattlefield.CardSlots[0]);
+                _cachedCardTween.StartTween(strongerAICard, strongerPlayerCard.GetPosition(), movementDuration);
             }
         }
     }
