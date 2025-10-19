@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
@@ -76,6 +77,7 @@ public class CardController : MonoBehaviour
         {
             Destroy(defender.gameObject);
         }
+        cardView.ResetPosition();
     }
 
     public void ResetPosition()
@@ -91,6 +93,11 @@ public class CardController : MonoBehaviour
     public int GetAttack()
     {
         return _currentCardData.attack;
+    }
+
+    public string GetFriendlyName()
+    {
+        return _currentCardData.skillId.ToString();
     }
 }
 
@@ -148,6 +155,8 @@ public class CardView
         horizontalView.SetVitality(cardData.vitality);
         horizontalView.SetSkill(cardData.skillId);
         horizontalView.SetCharacterArt(cardData.horizontalCharacterArt);
+
+        root.gameObject.name = cardData.cardId.ToString();
     }
     
     public void OnPointerDown()
