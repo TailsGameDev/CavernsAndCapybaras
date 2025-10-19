@@ -2,21 +2,97 @@ using UnityEngine;
 
 public class AIController
 {
-    private BattleController battleController;
+    private class CardTween
+    {
+        private CardController _card;
+        private bool _isTweening;
+        private float _startTime;
+        private float _timeToEnd;
+        private Vector3 _startPosition;
+        private Vector3 _targetPosition;
+        private BattleController _battleController;
+
+        public bool IsTweening => _isTweening;
+
+        public CardTween(BattleController battleController)
+        {
+            _battleController = battleController;
+        }
+        
+        public void StartTween(CardController card, Vector3 targetPosition, float duration)
+        {
+            _card = card;
+            
+            _startPosition = card.GetPosition();
+            _targetPosition = targetPosition;
+
+            _startTime = Time.time;
+            _timeToEnd = Time.time + duration;
+            
+            card.SetParent(_battleController.movingCardsParent, worldPositionStays: true);
+            
+            _isTweening = true;
+        }
+
+        public void UpdateTween()
+        {
+            if (_card != null)
+            {
+                if (Time.time < _timeToEnd)
+                {
+                    // Calculate and set quadratic easing
+                    float duration = _timeToEnd - _startTime;
+                    float elapsed = Time.time - _startTime;
+                    float progress = elapsed / duration;
+                    float easedProgress = progress * progress;
+                    Vector3 newPosition = Vector3.Lerp(_startPosition, _targetPosition, easedProgress);
+                    _card.SetPosition(newPosition);
+                }
+                else
+                {
+                    _card.SetPosition(_targetPosition);
+                    FinishTweenAndReleaseCard();
+                }
+            }
+            else
+            {
+                _isTweening = false;
+            }
+        }
+
+        private void FinishTweenAndReleaseCard()
+        {
+            _isTweening = false;
+
+            // Simulate card release, as it's the AI dragging and dropping the cards
+            _battleController.OnCardReleased(card: _card);
+        }
+    }
+    
+    private readonly BattleController _battleController;
+
+    private readonly CardTween _cachedCardTween;
 
     public AIController(BattleController battleController)
     {
-        this.battleController = battleController;
+        _battleController = battleController;
+        
+        _cachedCardTween = new CardTween(battleController);
     }
 
-    public void Update()
+    public void Update(float movementDuration)
     {
-        if (battleController.CurrentDuelist == battleController.enemyDuelist)
+        if (_battleController.CurrentDuelist == _battleController.enemyDuelist)
         {
-            // Position cards in battlefield places so PlaceCardState can execute properly
-            if (battleController.CurrentState == battleController.PlaceCardsState)
+            if (_cachedCardTween.IsTweening)
             {
-                DuelistController duelist = battleController.CurrentDuelist;
+                _cachedCardTween.UpdateTween();
+            }
+            else if (_battleController.CurrentState == _battleController.PlaceCardsState)
+            {
+                // Position cards in battlefield places so PlaceCardState can execute properly
+
+                DuelistController duelist = _battleController.CurrentDuelist;
                 BattlefieldController battlefield = duelist.battlefieldController;
                 HandController hand = duelist.handController;
                 CardController[] handCardSlots = hand.CardSlots;
@@ -28,10 +104,9 @@ public class AIController
                         CardController cardInHand = handCardSlots[b];
                         if (cardInHand != null)
                         {
-                            cardInHand.SetPosition(battlefield.slots[b].position);
+                            _cachedCardTween.StartTween(cardInHand, battlefield.slots[b].position, movementDuration);
                             
-                            // Simulate card release, as it's the AI dragging and dropping the cards
-                            battleController.OnCardReleased(card: battlefield.CardSlots[0]);
+                            break;
                         }
                         else
                         {
@@ -40,10 +115,10 @@ public class AIController
                     }
                 }
             }
-            else if (battleController.CurrentState == battleController.AttackState)
+            else if (_battleController.CurrentState == _battleController.AttackState)
             {
                 // Get stronger AI attacker
-                BattlefieldController aiBattlefield = battleController.enemyDuelist.battlefieldController;
+                BattlefieldController aiBattlefield = _battleController.enemyDuelist.battlefieldController;
                 CardController[] aiCards = aiBattlefield.CardSlots;
                 CardController strongerAICard = aiCards[0];
                 for (int a = 0; a < aiCards.Length; a++)
@@ -55,7 +130,7 @@ public class AIController
                 }
                 
                 // Get the stronger player defender to be the target
-                BattlefieldController playerBattlefield = battleController.playerDuelist.battlefieldController;
+                BattlefieldController playerBattlefield = _battleController.playerDuelist.battlefieldController;
                 CardController[] playerCards = playerBattlefield.CardSlots;
                 CardController strongerPlayerCard = playerCards[0];
                 for (int a = 0; a < playerCards.Length; a++)
@@ -69,7 +144,7 @@ public class AIController
                 // Simulate card release on top of the target, as it's the AI dragging and dropping the cards
                 // TODO: Protection
                 strongerAICard.SetPosition(strongerPlayerCard.GetPosition());
-                battleController.OnCardReleased(card: aiBattlefield.CardSlots[0]);
+                _battleController.OnCardReleased(card: aiBattlefield.CardSlots[0]);
             }
         }
     }

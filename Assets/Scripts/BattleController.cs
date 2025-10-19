@@ -16,6 +16,8 @@ public class BattleController : ScreenController
     public DeckData enemyTestDeck;
     public DeckData playerTestDeck;
 
+    public float aiMovementDuration;
+
     private DuelistController _currentDuelist;
     private DuelistController _opponentDuelist;
 
@@ -84,7 +86,7 @@ public class BattleController : ScreenController
     private void Update()
     {
         // FSM Loop
-        _aiController.Update();
+        _aiController.Update(aiMovementDuration);
         
         _currentState.Update();
         BattleState nextState = _currentState.GetNextState();
@@ -118,13 +120,6 @@ public class BattleController : ScreenController
     public DuelistController GetOpponentDuelist()
     {
         return (_currentDuelist == playerDuelist) ? enemyDuelist : playerDuelist;
-    }
-
-    public bool HasReleaseCardInput()
-    {
-        // Consider AI turn as automatic release card input as it places cards really fast
-        return (_currentDuelist == playerDuelist) || Mouse.current.leftButton.wasReleasedThisFrame || (Touchscreen.current != null
-            && Touchscreen.current.primaryTouch.phase.value == UnityEngine.InputSystem.TouchPhase.Ended);
     }
 
     public void OnCardReleased(CardController card)
