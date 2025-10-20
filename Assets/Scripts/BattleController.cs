@@ -12,7 +12,6 @@ public class BattleController : ScreenController
 
     public TextMeshProUGUI hintText;
     public Transform movingCardsParent;
-    public CanvasGroup playerBattlefieldHighlight;
     public float detachPlayerBattlefieldAlpha;
     
     public DeckData enemyTestDeck;
@@ -139,10 +138,5 @@ public class BattleController : ScreenController
     public bool IsPlayerTurn()
     {
         return (_currentDuelist == playerDuelist);
-    }
-
-    public void SetPlayerBattlefieldHighlight(bool highlight)
-    {
-        playerBattlefieldHighlight.alpha = highlight ? detachPlayerBattlefieldAlpha : 0.0f;
     }
 }

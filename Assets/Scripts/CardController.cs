@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using Object = System.Object;
 
 public class CardController : MonoBehaviour
 {
@@ -97,6 +98,11 @@ public class CardController : MonoBehaviour
     public string GetFriendlyName()
     {
         return _currentCardData.skillId.ToString();
+    }
+
+    public void DestroySelf()
+    {
+        GameObject.DestroyImmediate(gameObject);
     }
 }
 

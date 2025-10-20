@@ -20,7 +20,7 @@ public class HandController
     {
         for (int c = _cardSlots.Length - 1; c >= 0; c--)
         {
-            Object.Destroy(_cardSlots[c].gameObject);
+            _cardSlots[c].DestroySelf();
         }
     }
     

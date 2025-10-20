@@ -7,6 +7,8 @@ public class BattlefieldController
 {
     public Transform root;
     public RectTransform[] slots;
+    public CanvasGroup highlightOverlay;
+    public float detachPlayerBattlefieldAlpha;
     
     private CardController[] _cardSlots;
     
@@ -22,7 +24,7 @@ public class BattlefieldController
         {
             if (_cardSlots[c] != null)
             {
-                Object.Destroy(_cardSlots[c].gameObject);
+                _cardSlots[c].DestroySelf();
             }
         }
     }
@@ -45,5 +47,10 @@ public class BattlefieldController
             }
         }
         return true;
+    }
+    
+    public void SetPlayerBattlefieldHighlight(bool highlight)
+    {
+        highlightOverlay.alpha = highlight ? detachPlayerBattlefieldAlpha : 0.0f;
     }
 }

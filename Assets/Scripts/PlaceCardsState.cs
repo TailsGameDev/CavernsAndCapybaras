@@ -65,8 +65,8 @@ public class PlaceCardsState : BattleState
                 }
             }
 
-            // Detach player battlefield highlight if any card is being held
-            battleController.SetPlayerBattlefieldHighlight(hasHeldCard);
+            // Detach the player battlefield if any card is being held
+            battlefield.SetPlayerBattlefieldHighlight(hasHeldCard);
             
             if (hasHeldCard)
             {
@@ -112,7 +112,8 @@ public class PlaceCardsState : BattleState
             handCardSlots[c].ResetPosition();
         }
         
-        battleController.playerBattlefieldHighlight.alpha = 0.0f;
+        // Reset battlefield highlight
+        battleController.playerDuelist.battlefieldController.SetPlayerBattlefieldHighlight(highlight: false);
     }
     
     public override BattleState GetNextState()

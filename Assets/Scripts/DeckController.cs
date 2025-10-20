@@ -28,7 +28,7 @@ public class DeckController
     {
         for (int c = _cardsControllers.Count - 1; c >= 0; c--)
         {
-            Object.Destroy(_cardsControllers[c].gameObject);
+            _cardsControllers[c].DestroySelf();
         }
         _cardsControllers.Clear();
     }
