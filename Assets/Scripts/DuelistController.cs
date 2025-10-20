@@ -11,8 +11,12 @@ public class DuelistController
     public BattlefieldController battlefieldController;
 
     public DuelistView duelistView;
+
+    public float tweenScale;
+    public float tweenDuration;
     
     private int _currentVitality;
+    private TransformScaleTween _vitalityTween;
     
     
     public int Vitality => _currentVitality;
@@ -26,8 +30,9 @@ public class DuelistController
 
         const int DEFAULT_VITALITY = 4;
         SetVitality(DEFAULT_VITALITY);
+        
+        _vitalityTween = new TransformScaleTween();
     }
-
     public void Clear()
     {
         deckController.Clear();
@@ -35,6 +40,14 @@ public class DuelistController
         battlefieldController.Clear();
     }
 
+    public void Update()
+    {
+        if (_vitalityTween.IsTweening)
+        {
+            _vitalityTween.Update();
+        }
+    }
+    
     public void SetVitality(int newVitality)
     {
         _currentVitality = newVitality;
@@ -43,7 +56,15 @@ public class DuelistController
 
     public void TakeDamage(int damage)
     {
-        SetVitality(_currentVitality - damage);
+        _currentVitality -= damage;
+
+        // Tween to detach vitality loss
+        _vitalityTween.StartTween(transform: duelistView.vitalityText.transform.parent,
+            targetScale: Vector3.one * tweenScale,duration: tweenDuration,
+            onComplete:() =>
+            {
+                duelistView.UpdateVitality(_currentVitality);
+            });
     }
 
     public bool IsDead()

@@ -12,7 +12,6 @@ public class BattleController : ScreenController
 
     public TextMeshProUGUI hintText;
     public Transform movingCardsParent;
-    public float detachPlayerBattlefieldAlpha;
     
     public DeckData enemyTestDeck;
     public DeckData playerTestDeck;
@@ -102,11 +101,16 @@ public class BattleController : ScreenController
             _currentState = nextState;
         }
 
+        // Reset the released cards position by default
         if (_cachedCardToResetPosition != null)
         {
             _cachedCardToResetPosition.ResetPosition();
             _cachedCardToResetPosition = null;
         }
+        
+        // Update duelists as they have internal tweens
+        playerDuelist.Update();
+        enemyDuelist.Update();
     }
 
     public void SwapDuelists()

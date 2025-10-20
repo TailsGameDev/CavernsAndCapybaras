@@ -693,6 +693,8 @@ MonoBehaviour:
     duelistView:
       avatarImage: {fileID: 4986319716810123712}
       vitalityText: {fileID: 4150914273222773075}
+    tweenScale: 3
+    tweenDuration: 0.5
   playerDuelist:
     deckController:
       root: {fileID: 7459799384911369465}
@@ -715,9 +717,10 @@ MonoBehaviour:
     duelistView:
       avatarImage: {fileID: 2807889204876359083}
       vitalityText: {fileID: 6511736180625347896}
+    tweenScale: 3
+    tweenDuration: 0.5
   hintText: {fileID: 4515726102082565833}
   movingCardsParent: {fileID: 3704589309040380332}
-  detachPlayerBattlefieldAlpha: 0
   enemyTestDeck:
     cardIds: 0700000007000000080000000800000009000000090000000a0000000a0000000b0000000b0000000c0000000c000000
   playerTestDeck:
