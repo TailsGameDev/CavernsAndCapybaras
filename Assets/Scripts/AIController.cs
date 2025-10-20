@@ -44,7 +44,21 @@ public class AIController
                     float duration = _timeToEnd - _startTime;
                     float elapsed = Time.time - _startTime;
                     float progress = elapsed / duration;
-                    float easedProgress = progress * progress;
+
+                    // float easedProgress = progress * progress;
+                    float easedProgress;
+                    if (progress < 0.5f)
+                    {
+                        // First half: ease-in (accelerate)
+                        easedProgress = 2 * progress * progress;
+                    }
+                    else
+                    {
+                        // Second half: ease-out (decelerate)
+                        progress = progress - 1;
+                        easedProgress = 1 - (2 * progress * progress);
+                    }
+
                     Vector3 newPosition = Vector3.Lerp(_startPosition, _targetPosition, easedProgress);
                     _card.SetPosition(newPosition);
                 }

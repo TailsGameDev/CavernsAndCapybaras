@@ -6,6 +6,7 @@ public enum ScreenId
     BATTLE = 1,
     BATTLE_REWARDS = 2,
     MAIN_MENU = 3,
+    GAME_OVER = 4,
 }
 
 public class ScreenController : MonoBehaviour

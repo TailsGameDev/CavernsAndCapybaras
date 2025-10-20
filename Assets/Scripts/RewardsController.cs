@@ -9,7 +9,7 @@ public class RewardsController : ScreenController
     {
         base.ShowAsScreen();
         
-        _nextScreenId = ScreenId.BATTLE_REWARDS;
+        _nextScreenId = screenId;
     }
     
     public void OnNextBattleButtonClick()

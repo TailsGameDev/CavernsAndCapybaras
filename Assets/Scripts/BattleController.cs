@@ -72,7 +72,7 @@ public class BattleController : ScreenController
 
         _currentDuelist = enemyDuelist;
         
-        _nextScreenId = ScreenId.BATTLE;
+        _nextScreenId = screenId;
     }
 
     public override void Close()
@@ -126,7 +126,7 @@ public class BattleController : ScreenController
 
     private void OnBattleFinished(DuelistController winner)
     {
-        _nextScreenId = (winner == playerDuelist) ? ScreenId.BATTLE_REWARDS : ScreenId.MAIN_MENU;
+        _nextScreenId = (winner == playerDuelist) ? ScreenId.BATTLE_REWARDS : ScreenId.GAME_OVER;
     }
     
     public override ScreenId GetNextScreenId()

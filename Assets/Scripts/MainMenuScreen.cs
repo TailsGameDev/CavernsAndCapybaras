@@ -8,7 +8,7 @@ public class MainMenuScreen : ScreenController
     {
         base.ShowAsScreen();
         
-        _nextScreenId = ScreenId.MAIN_MENU;
+        _nextScreenId = screenId;
     }
 
     public void OnPlayButtonClick()
