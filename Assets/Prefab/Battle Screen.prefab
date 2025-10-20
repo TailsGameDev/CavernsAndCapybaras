@@ -693,7 +693,7 @@ MonoBehaviour:
     duelistView:
       avatarImage: {fileID: 4986319716810123712}
       vitalityText: {fileID: 4150914273222773075}
-    tweenScale: 3
+    tweenScale: 1.5
     tweenDuration: 0.5
   playerDuelist:
     deckController:
@@ -717,7 +717,7 @@ MonoBehaviour:
     duelistView:
       avatarImage: {fileID: 2807889204876359083}
       vitalityText: {fileID: 6511736180625347896}
-    tweenScale: 3
+    tweenScale: 1.5
     tweenDuration: 0.5
   hintText: {fileID: 4515726102082565833}
   movingCardsParent: {fileID: 3704589309040380332}

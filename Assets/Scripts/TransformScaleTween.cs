@@ -72,4 +72,13 @@ public class TransformScaleTween
         _isTweening = false;
         _onComplete?.Invoke();
     }
+
+    public void ClearTween()
+    {
+        if (_transform != null)
+        {
+            _transform.localScale = Vector3.one;
+        }
+        _isTweening = false;
+    }
 }

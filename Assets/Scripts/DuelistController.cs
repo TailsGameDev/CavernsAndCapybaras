@@ -38,6 +38,7 @@ public class DuelistController
         deckController.Clear();
         handController.Clear();
         battlefieldController.Clear();
+        _vitalityTween.ClearTween();
     }
 
     public void Update()
@@ -58,12 +59,17 @@ public class DuelistController
     {
         _currentVitality -= damage;
 
-        // Tween to detach vitality loss
+        // Do a punch scale tween to detach vitality loss
         _vitalityTween.StartTween(transform: duelistView.vitalityText.transform.parent,
-            targetScale: Vector3.one * tweenScale,duration: tweenDuration,
+            targetScale: Vector3.one * tweenScale,duration: (tweenDuration / 2),
             onComplete:() =>
             {
-                duelistView.UpdateVitality(_currentVitality);
+                _vitalityTween.StartTween(transform: duelistView.vitalityText.transform.parent,
+                    targetScale: Vector3.one, duration: (tweenDuration / 2),
+                    onComplete: () =>
+                    {
+                        duelistView.UpdateVitality(_currentVitality);
+                    });
             });
     }
 
