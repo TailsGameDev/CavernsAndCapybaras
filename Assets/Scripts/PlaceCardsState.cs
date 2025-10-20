@@ -50,6 +50,7 @@ public class PlaceCardsState : BattleState
         }
 
         // Resolve wave movement of hand cards
+        if (battleController.IsPlayerTurn())
         {
             // Check if any card is being held
             bool hasHeldCard = false;
@@ -64,6 +65,9 @@ public class PlaceCardsState : BattleState
                 }
             }
 
+            // Detach player battlefield highlight if any card is being held
+            battleController.SetPlayerBattlefieldHighlight(hasHeldCard);
+            
             if (hasHeldCard)
             {
                 // Reset position of cards that are not being held
@@ -107,6 +111,8 @@ public class PlaceCardsState : BattleState
         {
             handCardSlots[c].ResetPosition();
         }
+        
+        battleController.playerBattlefieldHighlight.alpha = 0.0f;
     }
     
     public override BattleState GetNextState()
